@@ -1,0 +1,38 @@
+---
+title: "reading_data_from_the_web"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(rvest)
+library(httr)
+
+```
+
+```{r}
+url = "http://samhda.s3-us-gov-west-1.amazonaws.com/s3fs-public/field-uploads/2k15StateFiles/NSDUHsaeShortTermCHG2015.htm"
+drug_use_xml = read_html(url)
+
+drug_use_xml
+```
+
+```{r}
+drug_use_xml %>%
+  html_nodes(css = "table")
+
+table_marj = (drug_use_xml %>% html_nodes(css = "table"))[[1]] %>%
+  html_table() %>%
+  .[-1,] %>% 
+  as_tibble()
+
+
+
+```
+
+
+```{r}
+hpsaga_html = read_html("https://www.imdb.com/list/ls000630791/")
+```
+
